@@ -1,59 +1,149 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nzuza Attorneys | Durban Legal Services</title>
-    <meta name="description" content="Strategic, affordable legal solutions in Durban. Criminal law, matrimonial law, deceased estates, RAF claims, evictions, and contract disputes.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nzuzaattorney.com/">
-    <meta property="og:title" content="Nzuza Attorneys | Durban Legal Services">
-    <meta property="og:description" content="Strategic, affordable legal solutions in Durban.">
-    <meta property="og:image" content="https://nzuzaattorney.com/images/og-image.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://nzuzaattorney.com/">
-    <meta property="twitter:title" content="Nzuza Attorneys | Durban Legal Services">
-    <meta property="twitter:description" content="Strategic, affordable legal solutions in Durban.">
-    <meta property="twitter:image" content="https://nzuzaattorney.com/images/og-image.jpg">
-    
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LegalService",
-        "name": "Nzuza Attorneys",
-        "description": "Strategic, Affordable Legal Solutions in Umlazi and greater Durban",
-        "url": "https://nzuzaattorney.com",
-        "telephone": "+27796017408",
-        "email": "",
-        "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "133 Pigogo Rd, Umlazi J, Umlazi, 4066",
-        "addressLocality": "Durban",
-        "addressRegion": "KwaZulu-Natal",
-        "addressCountry": "South Africa"
-        },
-        "areaServed": ["Durban", "KwaZulu-Natal", "South Africa"],
-        "founder": {
-            "@type": "Person",
-            "name": "Sabelo"
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nzuza Attorneys — Hero slideshow</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* --- Hero slider layout --- */
+    .hero { position: relative; overflow: hidden; min-height: 70vh; display:flex; align-items:center; }
+    .hero-slider { position: absolute; inset: 0; z-index: 0; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 900ms ease;
+      will-change: opacity, transform;
+      transform-origin: center center;
+      pointer-events: none;
     }
-    </script>
+    .slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      /* slow zoom (disabled with reduced motion) */
+      animation: slowZoom 20s linear forwards;
+    }
+    @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.05); } }
 
-    <link rel="stylesheet" href="assets/css/styles.css">
+    /* overlay so content is readable */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 60%);
+      z-index: 1;
+      pointer-events: none;
+    }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    /* place content above slider */
+    
+    .hero-content { color: #fff; max-width: 760px; }
+
+    /* fade-up animation for content */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-up { opacity: 0; transform: translateY(12px); }
+    .animate-delay-100 { --delay: 0.10s; }
+    .animate-delay-200 { --delay: 0.20s; }
+    .animate-delay-300 { --delay: 0.30s; }
+
+    .hero-content.animated .animate-fade-up {
+      animation: fadeUp 600ms cubic-bezier(.2,.9,.2,1) both;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .hero-title { font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 .5rem; line-height:1.05; }
+    .hero-subtitle { margin: 0 0 1.25rem; font-size: clamp(1rem,2.2vw,1.125rem); color: #f3f3f3; }
+
+    /* CTAs */
+    .hero-cta { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom: 1rem; }
+    .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius: .5rem; text-decoration:none; color:inherit; font-weight:600; transition: transform 160ms ease, box-shadow 160ms ease; }
+    .btn-lg { padding: .75rem 1.25rem; font-size:1rem; }
+    .btn-primary { background: #0d6efd; color: #fff; }
+    .btn-secondary { background: #25D366; color: #fff; }
+
+    .btn:focus { outline: 3px solid rgba(255,255,255,.15); outline-offset: 3px; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+
+    /* trust badges */
+    .trust-badges { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem; }
+    .trust-badge {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      padding: .3rem .6rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      display:inline-block;
+    }
+
+    /* slideshow controls */
+    .sl-control {
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .sl-control:hover { background: rgba(0,0,0,0.55); }
+    .sl-prev { left: 1rem; }
+    .sl-next { right: 1rem; }
+
+    .sl-dots {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 1rem;
+      display:flex;
+      gap: .5rem;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sl-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.12);
+      cursor: pointer;
+    }
+    .sl-dot[aria-pressed="true"] {
+      background: #fff;
+    }
+    .sl-dot:focus { outline: 2px solid rgba(255,255,255,0.35); outline-offset: 3px; }
+
+    /* Responsive tweaks */
+    @media (max-width:640px) {
+      .container { padding: 2rem 1rem; }
+      .hero-title { font-size: 1.6rem; }
+      .hero-cta { gap:.5rem; }
+      .sl-control { width: 40px; height: 40px; }
+    }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .slide.is-active { animation: none !important; transform: none !important; }
+      .hero-content.animated .animate-fade-up { animation: none !important; opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
+  <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -68,7 +158,7 @@
                 </div>
 
                 <!-- Desktop Navigation -->
-                <nav class="desktop-nav">
+            <nav class="desktop-nav">
                     <ul>
                         <li><a href="index.html" class="nav-link active">Home</a></li>
                         <li><a href="about.html" class="nav-link">About Us</a></li>
@@ -87,7 +177,6 @@
                         <li><a href="contact.html" class="nav-link">Contact</a></li>
                     </ul>
                 </nav>
-
                 <div class="header-cta">
                     <a href="tel:+27796017408" class="contact-link">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -127,47 +216,76 @@
         </nav>
     </div>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-slider">
-                <div class="slide active" style="background-image: url('assets/legal%20pictures/942143_499467650101821_552888477_n.jpg');"></div>
-                <div class="slide" style="background-image: url('assets/legal%20pictures/edinburgh-sheriff-court.jpg');"></div>
-                <div class="slide" style="background-image: url('assets/legal%20pictures/images%20(1).jpg');"></div>
-                <div class="slide" style="background-image: url('assets/legal%20pictures/images.jpg');"></div>
-            </div>
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title animate-fade-up">We are a small dynamic law firm</h1>
-                    <p class="hero-subtitle animate-fade-up animate-delay-100">
-                        Nzuza Attorneys provides professional legal services in Durban. 
-                        Led by Sabelo, we deliver results with integrity and dedication.
-                    </p>
-                    <div class="hero-cta animate-fade-up animate-delay-200">
-                        <a href="tel:+27796017408" class="btn btn-lg btn-primary">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58z"/>
-                            </svg>
-                            Call 079 601 7408
-                        </a>
-                        <a href="https://wa.me/27796017408" target="_blank" class="btn btn-lg btn-secondary">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.93 7.93 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326M7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.6 6.6 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.932 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.774-.114.133-.229.148-.423.05-.197-.099-.834-.308-1.589-.983-.587-.525-.983-1.175-1.098-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
-                            </svg>
-                            WhatsApp Us
-                        </a>
-                    </div>
-                    <div class="trust-badges animate-fade-up animate-delay-300">
-                        <span class="trust-badge">Professional</span>
-                        <span class="trust-badge">Ethical</span>
-                        <span class="trust-badge">Client-Focused</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <main>
+    <!-- Hero Section with slideshow -->
+    <section class="hero" aria-label="Hero" aria-roledescription="slideshow" data-autoplay="true">
+      <div class="hero-slider" aria-hidden="true">
+        <div class="slide is-active"
+             role="img"
+             aria-label="Interior of courthouse"
+             style="background-image: url('assets/legal%20pictures/942143_499467650101821_552888477_n.jpg');"></div>
 
-        <!-- Stats Strip -->
+        <div class="slide"
+             role="img"
+             aria-label="Edinburgh sheriff court"
+             style="background-image: url('assets/legal%20pictures/edinburgh-sheriff-court.jpg');"></div>
+
+        <div class="slide"
+             role="img"
+             aria-label="Legal office workspace"
+             style="background-image: url('assets/legal%20pictures/images%20(1).jpg');"></div>
+
+        <div class="slide"
+             role="img"
+             aria-label="Law imagery"
+             style="background-image: url('assets/legal%20pictures/images.jpg');"></div>
+      </div>
+
+      <!-- Prev / Next controls -->
+      <button class="sl-control sl-prev" aria-label="Previous slide" data-action="prev">
+        <!-- left arrow -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="sl-control sl-next" aria-label="Next slide" data-action="next">
+        <!-- right arrow -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- Dots (generated by JS) -->
+      <div class="sl-dots" role="tablist" aria-label="Slide indicators"></div>
+
+      <div class="container">
+        <div class="hero-content" id="heroContent">
+          <h1 class="hero-title animate-fade-up">We are a small dynamic law firm</h1>
+          <p class="hero-subtitle animate-fade-up animate-delay-100">
+            Nzuza Attorneys provides professional legal services in Durban. 
+            Led by Sabelo, we deliver results with integrity and dedication.
+          </p>
+          <div class="hero-cta animate-fade-up animate-delay-200">
+            <a href="tel:+27796017408" class="btn btn-lg btn-primary" aria-label="Call 079 601 7408">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58z"/>
+              </svg>
+              Call 079 601 7408
+            </a>
+            <a href="https://wa.me/27796017408" target="_blank" class="btn btn-lg btn-secondary" aria-label="WhatsApp Us">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.93 7.93 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326M7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.6 6.6 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.932 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.774-.114.133-.229.148-.423.05-.197-.099-.834-.308-1.589-.983-.587-.525-.983-1.175-1.098-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+              </svg>
+              WhatsApp Us
+            </a>
+          </div>
+
+          <div class="trust-badges animate-fade-up animate-delay-300" aria-hidden="false">
+            <span class="trust-badge">Professional</span>
+            <span class="trust-badge">Ethical</span>
+            <span class="trust-badge">Client-Focused</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+    <!-- Stats Strip -->
         <section class="stats-strip">
             <div class="container">
                 <div class="stats-content">
@@ -187,7 +305,7 @@
             </div>
         </section>
 
-        <!-- About Preview -->
+         <!-- About Preview -->
         <section class="section" id="about">
             <div class="container">
                 <div class="section-header">
@@ -248,7 +366,7 @@
 
 
 
-                    <!-- Criminal Law -->
+                    <!-- disability Law -->
                     <a href="services/criminal-law.html" class="service-card" id="criminal" style="display: block;">
                         <div class="service-card-icon">
                             <svg width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
@@ -325,7 +443,7 @@ with disabilities in society.
                         </div>
                     </a>
 
-                    <!-- Contract Law -->
+                    <!-- Medical Negligence -->
                     <a href="services/contract-law.html" class="service-card" id="contract" style="display: block;">
                         <div class="service-card-icon">
                             <svg width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
@@ -334,9 +452,9 @@ with disabilities in society.
                             </svg>
                         </div>
                         <div class="service-card-content">
-                            <h3 class="service-card-title">Contract Law</h3>
+                            <h3 class="service-card-title">Medical Negligence</h3>
                             <p class="service-card-description">
-                                Drafting, review, and dispute resolution for various types of contracts and agreements.
+                                We specialize in handling cases involving medical errors and medical malpractice.   
                             </p>
                             <span class="btn btn-sm btn-outline" style="color: var(--primary); border-color: var(--primary);">
                                 Learn More
@@ -560,10 +678,10 @@ with disabilities in society.
                     <ul class="footer-links">
                         <li><a href="#criminal">Criminal Law</a></li>
                         <li><a href="#matrimonial-law">Matrimonial Law</a></li>
-                        <li><a href="#deceased-estates">Deceased Estates</a></li>
+                        <li><a href="#deceased-estates">Deceased Estates/ Estate Administrators</a></li>
                         <li><a href="#raf-claims">RAF Claims</a></li>
                         <li><a href="#evictions">Evictions</a></li>
-                        <li><a href="#contract">Contract Law</a></li>
+                        <li><a href="#contract">Disability Law</a></li>
                     </ul>
                 </div>
 
@@ -620,8 +738,91 @@ with disabilities in society.
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/slideshow.js"></script>
+
+  <script>
+    (function () {
+      const hero = document.querySelector('.hero');
+      const slider = hero.querySelector('.hero-slider');
+      const slides = Array.from(slider.querySelectorAll('.slide'));
+      const dotsContainer = hero.querySelector('.sl-dots');
+      const prevBtn = hero.querySelector('[data-action="prev"]');
+      const nextBtn = hero.querySelector('[data-action="next"]');
+      const heroContent = hero.querySelector('.hero-content');
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let current = slides.findIndex(s => s.classList.contains('is-active'));
+      if (current < 0) current = 0;
+      let intervalId = null;
+      const AUTOPLAY_MS = 5000;
+
+      // build dots
+      slides.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'sl-dot';
+        btn.type = 'button';
+        btn.setAttribute('aria-pressed', (i === current).toString());
+        btn.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        btn.dataset.index = i;
+        btn.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(btn);
+      });
+
+      const dots = Array.from(dotsContainer.children);
+
+      function updateUI() {
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+        dots.forEach((d, i) => d.setAttribute('aria-pressed', (i === current).toString()));
+        // retrigger content animation
+        if (!prefersReduced && heroContent) {
+          heroContent.classList.remove('animated');
+          void heroContent.offsetWidth;
+          heroContent.classList.add('animated');
+        }
+      }
+
+      function goTo(index) {
+        current = (index + slides.length) % slides.length;
+        updateUI();
+      }
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      // autoplay (unless reduced-motion)
+      function startAutoplay() {
+        if (prefersReduced) return;
+        if (intervalId) return;
+        intervalId = setInterval(next, AUTOPLAY_MS);
+      }
+      function stopAutoplay() {
+        if (!intervalId) return;
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+
+      // wire controls
+      nextBtn.addEventListener('click', () => { next(); stopAutoplay(); });
+      prevBtn.addEventListener('click', () => { prev(); stopAutoplay(); });
+
+      // pause on hover/focus for better UX
+      hero.addEventListener('mouseenter', stopAutoplay);
+      hero.addEventListener('mouseleave', () => { if (!hero.contains(document.activeElement)) startAutoplay(); });
+
+      // pause when any control receives focus; resume when focus leaves the hero
+      hero.addEventListener('focusin', stopAutoplay);
+      hero.addEventListener('focusout', (e) => {
+        // resume only if focus moved outside the hero
+        if (!hero.contains(e.relatedTarget)) startAutoplay();
+      });
+
+      // keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); next(); stopAutoplay(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); stopAutoplay(); }
+      });
+
+      // initialize
+      updateUI();
+      startAutoplay();
+    })();
+  </script>
 </body>
 </html>
